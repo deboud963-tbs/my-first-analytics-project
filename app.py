@@ -46,3 +46,18 @@ st.line_chart(line_data)
 #Generate random data for scatter chart
 chart_data = pd.DataFrame(np.random.randn(20,3), columns = ["a","b","c"])
 st.scatter_chart(chart_data)
+
+
+import streamlit as st
+import pandas as pd
+
+st.title("CSV File Uploader")
+
+#File Uploader
+uploaded_file = st.file_uploader("Upload as CSV file", type=["csv"])
+
+if uploaded_file:
+    df = pd.read_csv(uploaded_file)
+    st.write("### Preview of Uploaded Data:")
+    st.dataframe(df.head()) #Show first few rows
+
