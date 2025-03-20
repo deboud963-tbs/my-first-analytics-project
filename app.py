@@ -76,3 +76,4 @@ subscriptions_by_date = df1000.groupby('Trips Date').size().reset_index(name='Co
 st.write(subscriptions_by_date)
 st.line_chart(subscriptions_by_date, x="Trips Date", y="Count")
 
+
