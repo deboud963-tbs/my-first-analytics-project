@@ -53,11 +53,26 @@ import pandas as pd
 
 st.title("CSV File Uploader")
 
-#File Uploader
-uploaded_file = st.file_uploader("Upload as CSV file", type=["csv"])
 
-if uploaded_file:
-    df = pd.read_csv(uploaded_file)
-    st.write("### Preview of Uploaded Data:")
-    st.dataframe(df.head()) #Show first few rows
+
+df1000 = pd.read_csv("dataset/trips_data_1000.csv")
+df100 = pd.read_csv("dataset/trips_data_100.csv")
+st.write("### Preview of First File:")
+st.dataframe(df1000.head()) #Show first few rows
+st.write("### Preview of Second File:")
+st.dataframe(df100.head()) #Show first few rows
+
+
+# Chart 1 File 1: Bar chart of customers by country
+st.subheader("Customers by City")
+country_counts = df1000["customer_city"].value_counts()
+st.write(country_counts)
+st.bar_chart(country_counts)
+
+# Chart 2 File 1: Line chart of Tripvcs over time
+st.subheader("Subscriptions Over Time")
+df1000['Trips Date'] = pd.to_datetime(df1000['pickup_time']).dt.date
+subscriptions_by_date = df1000.groupby('Trips Date').size().reset_index(name='Count')
+st.write(subscriptions_by_date)
+st.line_chart(subscriptions_by_date, x="Trips Date", y="Count")
 
