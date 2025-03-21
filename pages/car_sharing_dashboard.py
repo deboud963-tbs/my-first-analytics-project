@@ -68,5 +68,31 @@ with col3:
 st.write("### Preview of the dataframe : ")
 st.dataframe( trips_merged.head())
 
+#Visualizations
+st.title("Car Sharing Data Dashboard")
+#Trips over time
+st.subheader("Trips over time : ")
+trips_over_time = trips_merged.groupby('pickup_date').size().reset_index(name="Number of Trips")
+st.write(trips_over_time)
+st.line_chart(trips_over_time, x="pickup_date", y="Number of Trips")
+#Cumulative Revenue Growth Over Time
+st.subheader("Cumulative Revenue Growth Over Time : ")
+revenue_over_time = trips_merged.groupby('pickup_date')['revenue'].sum().cumsum()
+st.write(revenue_over_time)
+st.area_chart(revenue_over_time)
+#Number of Trips Per Car Model
+st.subheader("Number of Trips Per Car Model : ")
+trips_car_model = trips_merged["model"].value_counts()
+st.write(trips_car_model)
+st.bar_chart(trips_car_model)
+#Revenue By City
+st.subheader("Revenue By City : ")
+revenue_by_city = trips_merged.groupby("city_name")['revenue'].sum().sort_values(ascending=False)
+st.write(revenue_by_city )
+st.bar_chart(revenue_by_city )
+
+
+
+
 
 
